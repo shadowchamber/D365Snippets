@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SnippetCollection>
+  <Language Lang="X++" Guid="{43566771-aba7-4fac-816e-340361461015}">
+    <SnippetDir>
+      <OnOff>On</OnOff>
+      <Installed>true</Installed>
+      <Locale>1033</Locale>
+      <DirPath>.\CodeSnippets\Snippets</DirPath>
+      <LocalizedName>X++</LocalizedName>
+    </SnippetDir>
+  </Language>
+</SnippetCollection>

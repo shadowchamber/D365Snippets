@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>while</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Code snippet for while select loop in X++</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+      <Shortcut>ws</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+        <Literal Editable="true">
+          <ID>expression</ID>
+          <Type />
+          <ToolTip>Expression defining the records to fetch</ToolTip>
+          <Default>true</Default>
+          <Function />
+        </Literal>
+        <Literal Editable="true">
+          <ID>table</ID>
+          <Type />
+          <ToolTip>Table from which records are fetched</ToolTip>
+          <Default></Default>
+          <Function />
+        </Literal>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$"><![CDATA[while select * from $table$ where ($expression$)
+    {
+            $selected$ $end$
+    }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

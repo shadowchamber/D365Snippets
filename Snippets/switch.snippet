@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>switch</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Code snippet for switch statement in X++</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+      <Shortcut>switch</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+        <Literal Editable="true">
+          <ID>expression</ID>
+          <Type />
+          <ToolTip>Expression to switch on</ToolTip>
+          <Default>switch_on</Default>
+          <Function />
+        </Literal>
+        <Literal Editable="false">
+          <ID>cases</ID>
+          <Type />
+          <ToolTip />
+          <Default>default:</Default>
+          <Function>GenerateSwitchCases($expression$)</Function>
+        </Literal>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$"><![CDATA[switch ($expression$)
+	{
+		$cases$
+	}$end$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
