@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>gbtfv</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Code snippet for creating method for getting related table boolean field value</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+      <Shortcut>cocc</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+        <Literal Editable="true">
+          <ID>tableName</ID>
+          <Type />
+          <ToolTip>Table name</ToolTip>
+          <Default>Table1</Default>
+          <Function />
+        </Literal>
+		<Literal Editable="true">
+          <ID>keyField</ID>
+          <Type />
+          <ToolTip>Key field</ToolTip>
+          <Default>KeyField</Default>
+          <Function />
+        </Literal>
+		<Literal Editable="true">
+          <ID>refField</ID>
+          <Type />
+          <ToolTip>Reference field</ToolTip>
+          <Default>RefField</Default>
+          <Function />
+        </Literal>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$"><![CDATA[/// <summary>
+    /// Finds record in related table and gets field boolean value specified by fieldId. 
+    /// </summary>
+    /// <param name = "_fieldId">field id as FieldId (int).</param>
+    /// <returns>true if found field value is true.</returns>
+    public boolean $tableName$BooleanFieldValue(FieldId _fieldId)
+    {
+        Query query = new Query(); 
+        query.firstOnly1(true);
+        $tableName$ salesOrderCategory;
+        QueryBuildDataSource qbds = query.addDataSource(tableNum($tableName$));
+
+        QueryBuildRange qbr = qbds.addRange(fieldNum($tableName$, $keyField$));
+
+        qbr.value(this.$refField$);
+
+        qbds.addSelectionField(_fieldId);
+
+        QueryRun qr = new QueryRun(query);
+
+        if (!qr.next())
+        {
+            return false;
+        }
+
+        salesOrderCategory = qr.get(tableNum($tableName$));
+
+        return any2Enum(salesOrderCategory.(_fieldId));
+    }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
