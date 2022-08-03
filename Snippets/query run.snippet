@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>query run</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Code snippet for building query and run it</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+      <Shortcut>cocc</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+        <Literal Editable="true">
+          <ID>tableName</ID>
+          <Type />
+          <ToolTip>Table name</ToolTip>
+          <Default>Table1</Default>
+          <Function />
+        </Literal>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[Query query = new Query(); 
+        query.firstOnly1(true);
+        $tableName$ salesOrderCategory;
+        QueryBuildDataSource qbds = query.addDataSource(tableNum($tableName$));
+		
+		
+		
+        QueryRun qr = new QueryRun(query);
+
+        while (qr.next())
+        {
+            // TODO: implement code for query result processing
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
