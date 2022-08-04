@@ -24,6 +24,13 @@
           <Default>Table1</Default>
           <Function />
         </Literal>
+	<Literal Editable="true">
+          <ID>tableVar</ID>
+          <Type />
+          <ToolTip>Table variable name</ToolTip>
+          <Default>table</Default>
+          <Function />
+        </Literal>
 		<Literal Editable="true">
           <ID>keyField</ID>
           <Type />
@@ -45,16 +52,16 @@
     /// </summary>
     /// <param name = "_forupdate">true if record requires to be updated.</param>
     /// <returns>$tableName$ table record.</returns>
-    public GwsSalesOrderCategory salesOrderCategoryBpwGws(boolean _forupdate = false)
+    public $tableName$ $tableVar$(boolean _forupdate = false)
     {
-        $tableName$ table;
+        $tableName$ $tableVar$;
 
-        table.selectForUpdate(_forupdate);
+        $tableVar$.selectForUpdate(_forupdate);
 
-        select firstonly table
-            where table.$keyField$ == this.$refField$;
+        select firstonly $tableVar$
+            where $tableVar$.$keyField$ == this.$refField$;
 
-        return table;
+        return $tableVar$;
     }]]></Code>
     </Snippet>
   </CodeSnippet>
