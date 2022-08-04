@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ref table record</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Code snippet for creating test method</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+      <Shortcut>rtr</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+        <Literal Editable="true">
+          <ID>tableName</ID>
+          <Type />
+          <ToolTip>Table name</ToolTip>
+          <Default>Table1</Default>
+          <Function />
+        </Literal>
+		<Literal Editable="true">
+          <ID>keyField</ID>
+          <Type />
+          <ToolTip>Key field</ToolTip>
+          <Default>KeyField</Default>
+          <Function />
+        </Literal>
+		<Literal Editable="true">
+          <ID>refField</ID>
+          <Type />
+          <ToolTip>Reference field</ToolTip>
+          <Default>RefField</Default>
+          <Function />
+        </Literal>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[[/// <summary>
+    /// Gets related record from $tableName$ table.
+    /// </summary>
+    /// <param name = "_forupdate">true if record requires to be updated.</param>
+    /// <returns>$tableName$ table record.</returns>
+    public GwsSalesOrderCategory salesOrderCategoryBpwGws(boolean _forupdate = false)
+    {
+        $tableName$ table;
+
+        table.selectForUpdate(_forupdate);
+
+        select firstonly table
+            where table.$keyField$ == this.$refField$;
+
+        return table;
+    }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
