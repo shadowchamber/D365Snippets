@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>release to warehouse for sales line</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Code snippet for release to warehouse for sales line</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+      <Shortcut>rtwfsl</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[private void releaseToWarehouse(SalesLine _salesLine)
+    {
+        InventTrans inventTrans;
+        InventTransOrigin inventTransOrigin;
+        WHSTmpReleaseToWarehouse whsTmpReleaseToWarehouse;
+        WHSReleaseToWarehouseId whsReleaseToWarehouseId;
+
+        select firstonly inventTrans
+            order by inventTrans.inventDimId
+                where inventTrans.ItemId == _salesLine.ItemId
+                    && inventTrans.inventDimId == _salesLine.InventDimId
+                    && inventTrans.StatusReceipt == StatusReceipt::None
+                    && inventTrans.StatusIssue == StatusIssue::ReservPhysical
+            exists join inventTransOrigin
+                where inventTransOrigin.RecId == inventTrans.InventTransOrigin
+                    && inventTransOrigin.ReferenceCategory == InventTransType::Sales
+                    && inventTransOrigin.ReferenceId == _salesLine.SalesId
+                    && inventTransOrigin.InventTransId == _salesLine.InventTransId;
+
+        if (inventTrans)
+        {
+            whsReleaseToWarehouseId = WHSTmpReleaseToWarehouse::getNextReleaseToWarehouseId();
+
+            if (whsTmpReleaseToWarehouse.ReleaseToWarehouseId == whsReleaseToWarehouseId
+                && whsTmpReleaseToWarehouse.InventTransId == _salesLine.InventTransId
+                && whsTmpReleaseToWarehouse.InventDimId == _salesLine.InventDimId)
+            {
+                ttsbegin;
+                whsTmpReleaseToWarehouse.selectForUpdate(true);
+                whsTmpReleaseToWarehouse.ReleasedQty += _salesLine.QtyOrdered;
+                whsTmpReleaseToWarehouse.update();
+                ttscommit;
+            }
+            else
+            {
+                whsTmpReleaseToWarehouse.OrderNum = _salesLine.SalesId;
+                whsTmpReleaseToWarehouse.ReleaseToWarehouseId = whsReleaseToWarehouseId;
+                whsTmpReleaseToWarehouse.InventTransId = _salesLine.InventTransId;
+                whsTmpReleaseToWarehouse.InventDimId = inventTrans.InventDimId;
+                whsTmpReleaseToWarehouse.Module = WHSModule::Sales;
+                whsTmpReleaseToWarehouse.ReleasedQty = _salesLine.QtyOrdered;
+                whsTmpReleaseToWarehouse.insert();
+            }
+        }
+
+        WhsWarehouseRelease::releaseToWarehouse(whsTmpReleaseToWarehouse, whsReleaseToWarehouseId, false, false);
+    }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
