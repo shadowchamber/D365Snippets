@@ -18,13 +18,6 @@
       <Imports />
       <Declarations>
         <Literal Editable="true">
-          <ID>name</ID>
-          <Type />
-          <ToolTip>Class name to be tested</ToolTip>
-          <Default>Class1</Default>
-          <Function />
-        </Literal>
-		<Literal Editable="true">
           <ID>method</ID>
           <Type />
           <ToolTip>Method name to be tested</ToolTip>
@@ -40,16 +33,10 @@
         </Literal>
       </Declarations>
       <Code Language="X++" Kind="" Delimiter="$">
-	  <![CDATA[[SysTestTarget(classStr($name$)),
-    SysTestCaseAutomaticNumberSequences,
-    SysTestCaseUseSingleInstance(true)]
-    public class $name$_Test extends SysTestCase
-{
-    public void test_$method$_$case$()
+	  <![CDATA[public void test_$method$_$case$()
     {
         this.assertTrue(true);
-    }
-}]]></Code>
+    }]]></Code>
     </Snippet>
   </CodeSnippet>
 </CodeSnippets>
