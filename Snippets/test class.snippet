@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>test class</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Code snippet for creating test class</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+      <Shortcut>tstc</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+        <Literal Editable="true">
+          <ID>name</ID>
+          <Type />
+          <ToolTip>Class name to be tested</ToolTip>
+          <Default>Class1</Default>
+          <Function />
+        </Literal>
+		<Literal Editable="true">
+          <ID>method</ID>
+          <Type />
+          <ToolTip>Method name to be tested</ToolTip>
+          <Default>method1</Default>
+          <Function />
+        </Literal>
+		<Literal Editable="true">
+          <ID>case</ID>
+          <Type />
+          <ToolTip>Case to be tested</ToolTip>
+          <Default>Case1</Default>
+          <Function />
+        </Literal>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[[SysTestTarget(classStr($name$)),
+    SysTestCaseAutomaticNumberSequences,
+    SysTestCaseUseSingleInstance(true)]
+    public class $name$_Test extends SysTestCase
+{
+    public void test_$method$_$case$()
+    {
+        this.assertTrue(true);
+    }
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
