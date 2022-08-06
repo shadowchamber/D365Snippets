@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>create credit note</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>create credit note</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[public void createCreditNote(CustInvoiceTrans _custInvoiceTrans)
+    {
+        tmpFrmVirtualLines.TableNum = _custInvoiceTrans.TableId;
+        tmpFrmVirtualLines.RecordNo = _custInvoiceTrans.RecId;
+        tmpFrmVirtualLines.Id = _custInvoiceTrans.SalesId;
+        tmpFrmVirtualLines.LineNum = _custInvoiceTrans.LineNum;
+        tmpFrmVirtualLines.TransDate = _custInvoiceTrans.InvoiceDate;
+        tmpFrmVirtualLines.Qty = _custInvoiceTrans.Qty;
+
+        tmpFrmVirtualLines.write();
+
+        salesCopying = SalesCopying::construct(SalesPurchCopy::CreditNoteLines);
+
+        salesCopying.initParameters(salesTable::find(_custInvoiceTrans.SalesId, true),
+            tmpFrmVirtualLines,
+            tmpFrmVirtualHeader,
+            1,
+            true,
+            false,
+            true,
+            true,
+            false);
+
+        salesCopying.copy();
+    }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
