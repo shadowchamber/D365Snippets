@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>get next product number from sequence</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>get next product number from sequence</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[NumberSequenceTable numberSequenceTable;
+        str num;
+
+        numberSequenceTable = EcoResProductParameters::numRefProductNumber().numberSequenceTable();
+        num = NumberSeq::newGetNum(EcoResProductParameters::numRefProductNumber()).num();]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
