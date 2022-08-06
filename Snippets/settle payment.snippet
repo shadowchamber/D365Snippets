@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>settle payment</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>settle payment</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[CustTable custTable;
+        CustTrans invCustTrans, payCustTrans;
+        SpecTransManager manager;
+        CustVendTransData custVendTransData;
+
+        custTable = CustTable::find("600-BACARD");
+        // Find the oldest invoice that has not been settled yet
+        // for this customer you can customize the query find the invoice that you
+        //want
+        //to settle
+        select firstonly invCustTrans
+            order by TransDate asc
+            where invCustTrans.AccountNum == custTable.AccountNum &&
+            invCustTrans.TransType == LedgerTransType::Sales &&
+            !invCustTrans.LastSettleDate;
+        // Find the oldest payment that has not been settled yet
+        // for this customer
+        select firstonly payCustTrans
+            order by TransDate asc
+            where payCustTrans.AccountNum == custTable.AccountNum &&
+            payCustTrans.TransType == LedgerTransType::Payment &&
+            !payCustTrans.LastSettleDate;
+
+        ttsbegin;
+        // Create an object of the CustVendTransData class
+        // with the invoice transaction as parameter and mark
+        // it for settlement
+        custVendTransData = CustVendTransData::construct(invCustTrans);
+        custVendTransData.markForSettlement(CustTable);
+        // Create an object of the CustVendTransData class
+        // with the payment transaction as parameter and mark
+        // it for settlement
+        custVendTransData = CustVendTransData::construct(payCustTrans);
+        custVendTransData.markForSettlement(CustTable);
+        ttscommit;
+        // Settle all transactions marked for settlement for this
+        // customer
+
+        if(CustTrans::settleTransact(custTable, null, true,
+            SettleDatePrinc::DaysDate, systemdateget()))
+            info("Transactions settled");]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
