@@ -24,11 +24,11 @@
         #define.CompView(SWProjForecastCost)
         str ret;
         str ModelId = SysComputedColumn::returnField(identifierStr(SWProjForecastCost), identifierStr(ProjForecastCost), identifierStr(ModelId));
-        ret = “case ” + modelId +
-            ” when ‘Sales’ then ‘Forecast Sales’ ” +
-            ” when ‘Orders’ then ‘Forecast Orders’ ” +
-            ” when ‘Latest’ then ‘Forecast Latest’ ” +
-            ” end”;
+        ret = "case " + modelId +
+            " when 'Sales' then 'Forecast Sales' " +
+            " when 'Orders' then 'Forecast Orders' " +
+            " when 'Latest' then 'Forecast Latest' " +
+            " end";
         return ret;
     }]]></Code>
     </Snippet>
