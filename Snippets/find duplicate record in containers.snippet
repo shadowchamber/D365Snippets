@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>find duplicate record in containers</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>find duplicate record in containers</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[container validateTransactionNumber;
+        container testContainer;
+        boolean validate;
+        Counter transactionNoRangeIdx;
+
+        validateTransactionNumber = str2con(_transactionNumber);
+
+        for (transactionNoRangeIdx = 1; transactionNoRangeIdx <= conLen(validateTransactionNumber); transactionNoRangeIdx++)
+        {
+            validate = conFind(testContainer, conPeek(validateTransactionNumber, transactionNoRangeIdx));
+
+            if (!validate)
+            {
+                testContainer = conIns(testContainer, transactionNoRangeIdx, conPeek(validateTransactionNumber, transactionNoRangeIdx));
+            }
+            else
+            {
+                throw error("duplicate record exists");
+            }
+
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
