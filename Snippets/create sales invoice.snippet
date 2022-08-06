@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>create sales invoice</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>create sales invoice</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[SalesTable salesTable;
+        SalesLine salesLine;
+        SalesFormLetter salesFormLetter;
+
+        ttsbegin;
+        salesTable = SalesTable::find('001266');
+        salesLine.SalesId = salesTable.SalesId;
+        salesLine.ItemId = 'D0007';
+        salesLine.createLine(true, true, true, true, true, false);
+        ttscommit;
+
+        salesFormLetter = salesFormLetter::construct(DocumentStatus::Invoice);
+
+        salesFormLetter.update(salesTable);]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
