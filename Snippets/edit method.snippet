@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>edit method</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>edit method</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[public edit ReasonCode editBlockedReasonCode(boolean set, ReasonCode _reasonCode)
+    {
+        VendOnHoldHistory vendOnHoldHistory;
+
+        if (set)
+        {
+            ttsbegin;
+            vendOnHoldHistory = VendOnHoldHistory::find(this.AccountNum, true);
+            vendOnHoldHistory.ReasonCode = _reasonCode;
+            vendOnHoldHistory.update();
+            ttscommit;
+        }
+        else
+        {
+            _reasonCode = VendOnHoldHistory::find(this.AccountNum).ReasonCode;
+        }
+
+        return _reasonCode;
+    }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
