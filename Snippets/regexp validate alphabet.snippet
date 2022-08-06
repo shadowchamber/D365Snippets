@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>regexp validate alphabet</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>regexp validate alphabet</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[TextBuffer txt = new TextBuffer();
+        str msg = "A09BCDEFGS";
+
+        txt.setText(msg);
+        txt.regularExpressions(true); // activate regular expr in search
+
+        // Regular expression to validate only alphabets
+        if (txt.find('^[A-Z]+$'))
+        {
+            info("String contains only Alphabets");
+        }
+        else
+        {
+            info("String contains others characters");
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
