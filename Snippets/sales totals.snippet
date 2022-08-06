@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sales totals</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>sales totals</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[SalesTable      salesTable;
+        SalesId         salesId = "012517";
+
+        salesTable = SalesTable::find(salesId);
+        if (salesTable)
+        {
+            //calculate totals
+            SalesTotals salesTotals;
+            salesTotals = SalesTotals::construct(salesTable, SalesUpdate::All);
+            salesTotals.calc();
+            
+            AmountCur totalAmount;
+            totalAmount = salesTotals.totalAmount();
+            Info(strFmt("Total amount: %1", totalAmount));
+
+            AmountCur totalTaxAmount;
+            totalTaxAmount = salesTotals.totalTaxAmount();
+            Info(strFmt("Total tax amount: %1", totalTaxAmount));
+
+            AmountCur totalLineDiscount;
+            totalLineDiscount = salesTotals.totalLineDisc();
+            Info(strFmt("Total line discount amount: %1", totalLineDiscount));
+
+            AmountCur totalMarkup;
+            totalMarkup = salesTotals.totalMarkup();
+            Info(strFmt("Total shipping amount: %1", totalMarkup));
+
+            // totalAmount is the sales order balance due amount
+            //+ previously invoiced amounts
+            totalAmount     = salesTotals.totalAmount()
+                                + salesTable.amountInvoiced();
+
+            // totalTaxAmount is the sales order tax amount
+            //+ any previously invoiced tax amounts. Same applies to charges and discounts.
+            totalTaxAmount  = salesTotals.totalTaxAmount()
+                                + salesTable.taxAmountInvoiced();
+            totalLineDiscount = salesTotals.totalLineDisc()
+                                + salesTable.lineDiscInvoiced();
+            totalMarkup     = salesTotals.totalMarkup()
+                                + salesTable.markupInvoiced();
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
