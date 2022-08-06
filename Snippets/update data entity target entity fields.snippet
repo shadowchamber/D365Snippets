@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>update data entity target entity fields</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>update data entity target entity fields</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[public void mapEntityToDataSource(DataEntityRuntimeContext _entityCtx, DataEntityDataSourceRuntimeContext _dataSourceCtx) //Extends method
+    {
+        switch (_dataSourceCtx.name())
+        {
+            case dataEntityDataSourceStr(PurchPurchaseOrderHeaderV2Entity, PurchTable):
+                PurchPurchaseOrderHeaderV2Entity purchPurchaseOrderHeaderV2Entity = _entityCtx.getEntityRecord(); //Get Data Entity buffer (Source Entity)
+                PurchTable purchTable = _dataSourceCtx.getBuffer(); //Get Target Entity buffer
+                purchTable.MatchingAgreement = PurchAgreementHeader::findAgreementId(purchPurchaseOrderHeaderV2Entity.Al0PurchAgreementRef).RecId; //Set Target entity field
+         
+                break;
+        }
+        
+        next mapEntityToDataSource(_entityCtx, _dataSourceCtx);
+    }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
