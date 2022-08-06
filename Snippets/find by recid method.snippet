@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>find by recid method</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>find by recid method</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+        <Literal Editable="true">
+          <ID>table</ID>
+          <Type />
+          <ToolTip>Table name</ToolTip>
+          <Default>Table1</Default>
+          <Function />
+        </Literal>        
+        <Literal Editable="true">
+          <ID>tablevar</ID>
+          <Type />
+          <ToolTip>Table variable</ToolTip>
+          <Default>table</Default>
+          <Function />
+        </Literal>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[public static $table$ find(RecId _recId, boolean _forUpdate = false)
+    {
+        $table$ $tablevar$;
+
+        if (_recId)
+        {
+            $tablevar$.selectForUpdate(_forUpdate);
+
+            select firstonly $tablevar$
+                where $tablevar$.RecId == _recId;
+        }
+
+        return $tablevar$;
+    }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
