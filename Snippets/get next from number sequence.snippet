@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>get next from number sequence</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>get next from number sequence</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[NumberSeq numseq;
+        RecId voucherSeries;
+
+        Voucher voucher;
+        voucherSeries = LedgerJournalName::find(‘GenJrn’).NumberSequenceTable;
+        ttsBegin;
+        numseq = NumberSeq::newGetVoucherFromId(voucherSeries);
+        voucher = numseq.voucher();
+        ttsCommit;]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
