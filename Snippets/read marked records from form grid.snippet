@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>read marked records from form grid</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>read marked records from form grid</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[EcoResProduct ecoResProduct,CurrentEcoResProduct;
+        FormDataSource formDataSource;
+    
+        if (_args.record().TableId == tablenum(EcoResProduct))
+        {
+            ecoResProduct = _args.record();
+            formDataSource = ecoResProduct.dataSource();
+            if (formDataSource.anyMarked())
+            {
+                CurrentEcoResProduct = formDataSource.getFirst( 1, false );
+                while (CurrentEcoResProduct)
+                {
+                    info( strFmt(‘%1’ , CurrentEcoResProduct.Productname()));
+                    CurrentEcoResProduct = formDataSource.getNext();
+                }
+            }
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
