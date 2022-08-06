@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>open form in edit mode</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>opens form in edit mode</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[FormRun formRun;
+
+        Args args;
+        str defaultFormOnTable;
+        MenuFunction menuFunction;
+
+        args = new Args();
+        args.record(CustTable::find(‘test account’));
+
+        menuFunction = new MenuFunction(menuitemDisplayStr(CustTable), MenuItemType::Display);
+
+        if(menuFunction)
+        {
+            menuFunction.openMode(OpenMode::Edit);
+            formRun = menuFunction.create(args);
+            if(formRun)
+                formRun.run();
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
