@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>computed column multiply</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>returns multiplying in computed column</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[private static server str compTotalCostPrice()
+    {
+        #define.CompView(SWProjForecastCost)
+        #define.CompDS(ProjForecastCost)
+        #define.QtyCol(Qty)
+        #define.PriceCol(CostPrice)
+
+        return SysComputedColumn::multiply(
+            SysComputedColumn::returnField(
+            tableStr(#CompView),
+            identifierStr(#CompDS),
+            fieldStr(#CompDS, #PriceCol)
+            ),
+            SysComputedColumn::returnField(
+            tableStr(#CompView),
+            identifierStr(#CompDS),
+            fieldStr(#CompDS, #QtyCol)
+            )
+        );
+    }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
