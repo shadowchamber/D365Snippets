@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>bitmap to base64</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Convert bitmap to base64</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+      <Shortcut>bmtb</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[public FreeTxt getLeaveCodeImage(Bitmap _image)
+    {
+        System.Drawing.Image image;
+        System.IO.MemoryStream memoryStream;
+        Binary binary;
+        FreeTxt imageStr;
+
+        if (_image)
+        {
+            binary = Binary::constructFromContainer(_image);
+            memoryStream = binary.getMemoryStream();
+            image = System.Drawing.Image::FromStream(memoryStream);
+
+            image.Save(memoryStream, System.Drawing.Imaging.ImageFormat::get_Jpeg());
+
+            imageStr = System.Convert::ToBase64String(memoryStream.ToArray());
+        }
+
+        return imageStr;
+    }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
