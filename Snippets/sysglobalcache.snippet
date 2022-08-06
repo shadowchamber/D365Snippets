@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>SysGlobalCache Example</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>SysGlobalCache example</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[public void sysGlobalCache()
+    {
+        TransDate sessionDate;
+        Name functionID;
+        Description msg;
+        ACT_DebugLog debugLog;
+
+        Name userID;
+        Integer sectionID;
+
+        SysGlobalCache globalCache;
+        str result;
+        int number;
+
+        Map valuesMap, keyMap, resultMap;
+
+        MapEnumerator enumerator;
+
+        valuesMap = new Map(Types::Integer, Types::String);
+        keyMap = new Map(Types::Integer, Types::String);
+        resultMap = new Map(Types::String, Types::Date);
+
+        valuesMap.insert(1, systemDateGet());
+        valuesMap.insert(2, “FunctionID”);
+        valuesMap.insert(3, “success”);
+
+        keyMap.insert(1, curUserId());
+        keyMap.insert(2, sessionId());
+
+        globalCache = ClassFactory.globalCache();
+
+        globalCache.get(tableStr(DebugLog), keyMap);
+        globalCache.set(tableStr(DebugLog), keyMap, valuesMap);
+
+        resultMap = globalCache.get(tableStr(DebugLog), keyMap);
+        enumerator = resultMap.getEnumerator();
+
+        while (enumerator.moveNext())
+        {
+            number = enumerator.currentKey();
+
+            if (number == 1)
+            {
+                debugLog.SystemDate = enumerator.currentValue();
+            }
+            else if (number == 2)
+            {
+                debugLog.SpecificationID = enumerator.currentValue();
+            }
+            else if (number == 3)
+            {
+                debugLog.Message = enumerator.currentValue();
+            }
+        }
+        debugLog.insert();
+
+        globalCache.clear(curUserId());
+
+    }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
