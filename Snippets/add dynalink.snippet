@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>add dynalink</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>add dynalink</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[this.query().dataSourceTable(tableNum(ChildTable)).addDynalink(fieldNum(ChildTable, ChildTableFieldName)
+            , (Parent record instance)
+            , (fieldNum(ParentTable, ParentTableFieldName)));]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
