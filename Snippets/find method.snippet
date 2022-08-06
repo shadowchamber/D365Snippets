@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>find method</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>find method</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+        <Literal Editable="true">
+          <ID>type</ID>
+          <Type />
+          <ToolTip>KeyField type</ToolTip>
+          <Default>Num</Default>
+          <Function />
+        </Literal>
+        <Literal Editable="true">
+          <ID>parameter</ID>
+          <Type />
+          <ToolTip>method parameter name</ToolTip>
+          <Default>_num</Default>
+          <Function />
+        </Literal>
+        <Literal Editable="true">
+          <ID>table</ID>
+          <Type />
+          <ToolTip>Table name</ToolTip>
+          <Default>Table1</Default>
+          <Function />
+        </Literal>        
+        <Literal Editable="true">
+          <ID>tablevar</ID>
+          <Type />
+          <ToolTip>Table variable</ToolTip>
+          <Default>table</Default>
+          <Function />
+        </Literal>
+        <Literal Editable="true">
+          <ID>keyIndex</ID>
+          <Type />
+          <ToolTip>Key index</ToolTip>
+          <Default>KeIdx</Default>
+          <Function />
+        </Literal>
+        <Literal Editable="true">
+          <ID>keyField</ID>
+          <Type />
+          <ToolTip>Key field</ToolTip>
+          <Default>KeyField</Default>
+          <Function />
+        </Literal>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[public static $table$ find($type$ $parameter$, boolean _forUpdate = false)
+    {
+        $table$ $tablevar$;
+
+        if ($parameter$)
+        {
+            $tablevar$.selectForUpdate(_forUpdate);
+
+            select firstonly $tablevar$
+                index hint $keyIndex$
+                where $tablevar$.$keyField$ == $parameter$;
+        }
+
+        return $tablevar$;
+    }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
