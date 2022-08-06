@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>complex range</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>complex range</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[qbds2.addRange(fieldNum(ChildTableName, RecId)).value(strFmt(“((%1.%2 == 0) || ((%1.%2 == %3.%4) && (%3.%5 > %6)))”,
+            this.queryBuildDataSource().name(),
+            fieldStr(ParentTable, fieldname),
+            qbds2.name(),
+            fieldStr(ChildTable, ChildTableField),
+            fieldStr(ChildTable, ChildTableField),
+            date2StrXpp(Range value)));]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
