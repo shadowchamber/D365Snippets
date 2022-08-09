@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>args check parm enum type</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>args check parm enum type</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+        <Literal Editable="true">
+          <ID>name</ID>
+          <Type />
+          <ToolTip>Method name</ToolTip>
+          <Default>Enum1</Default>
+          <Function />
+        </Literal>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[if (enumNum($name$) != _args.parmEnumType())
+        {
+            throw Error("Wrong call of the function");
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
