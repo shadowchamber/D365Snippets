@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sys dict class</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>SysDictClass</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+      <Shortcut>sdc</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      <Literal Editable="true">
+          <ID>name</ID>
+          <Type />
+          <ToolTip>Method name</ToolTip>
+          <Default>method1</Default>
+          <Function />
+        </Literal>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[SysDictClass dictClass = new SysDictClass(classNum($name$));]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
