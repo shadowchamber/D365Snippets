@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>while list enumerator</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Code snippet for while list enumerator loop in X++</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+      <Shortcut>wl</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$"><![CDATA[ListEnumerator listEnumerator = implementedBy.getEnumerator();
+
+        while (listEnumerator.moveNext())
+        {
+
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
