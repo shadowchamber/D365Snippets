@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>attribute</Title>
+      <Author>Community</Author>
+      <Description>attribute</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[public class PracticeAttribute extends SysAttribute
+{
+    // Fields in the classDeclaration.
+    StartEnd startEndEnum;
+    str reason;
+    // Constructor.
+    public void new(StartEnd _startEndEnum, str _reason)
+    {
+        startEndEnum  = _startEndEnum;
+        reason = _reason;
+    }
+    // Other methods can go here.
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
