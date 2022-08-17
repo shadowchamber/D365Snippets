@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>atl open sales order</Title>
+      <Author>Community</Author>
+      <Description>attribute</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[ttsbegin;
+        AtlDataRootNode data = AtlDataRootNode::construct();
+        InventLocation warehouse = data.invent().warehouses().default();
+        var site = warehouse.inventSite();
+        var warehouseWhs = data.invent().warehouses().whs();
+        var siteWhs = warehouseWhs.inventSite();
+        var inventStatus = data.whs().inventStatuses().available();
+        data.whs().parameters().setupDefaultInventStatus(inventStatus);
+        InventTable item = data.invent().items().whs();
+        item.BpwGwsShortageItems = NoYes::Yes;
+        item.write();
+        var itemNoStock = data.invent().items().whsBuilder().create();
+        var itemNotStocked = data.invent ().items().defaultNotStocked();
+        data.invent().onHand().adjust().forItem(item).forInventDims([siteWhs, warehouseWhs, inventStatus]).addOnHandQty(111);
+
+        var purchaseOrder = data.purch().purchaseOrders().createDefault();
+        var purchaseOrderLine = purchaseOrder.addLine()
+            .setItem(item)
+            .setInventDims([siteWhs, warehouseWhs])
+            .setQuantity(77)
+            .save();
+        purchaseOrderLine.reserve().execute();
+
+        AtlEntitySalesOrder salesOrder = data.sales().salesOrders().createDefault();
+        salesOrder.save();
+
+        // WHS
+        AtlEntitySalesOrderLine salesLineWhsPartial = salesOrder.addLine(item, [siteWhs, warehouseWhs], 222).save();
+        salesLineWhsPartial.reserve().setQty(44).execute();
+        ttscommit;]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
