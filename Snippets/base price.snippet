@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>base price</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Code snippet for X++</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+      <Shortcut>base price</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$"><![CDATA[public display Price salesPrice(ItemId _itemId)
+    {
+        InventTable inventTable;
+        InventTableModule   inventTableModule;
+
+        select inventTable
+            where inventTable.Product == EcoResDistinctProductVariant.ProductMaster
+            join inventTableModule
+                where inventTableModule.ItemId == inventTable.ItemId
+                    && inventTableModule.ModuleType == ModuleInventPurchSales::Sales
+                    && inventTable.ItemId == _itemId;
+
+        return inventTableModule.Price;
+    }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
