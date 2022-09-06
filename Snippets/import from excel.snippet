@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>import from excel</Title>
+      <Author>Community</Author>
+      <Description>import from excel</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[using System.IO;
+using OfficeOpenXml;
+using OfficeOpenXml.ExcelPackage;
+using OfficeOpenXml.ExcelRange;
+
+public class ImportExcel
+{
+    /// <summary>
+    /// Runs the class with the specified arguments.
+    /// </summary>
+    /// <param name = "_args">The specified arguments.</param>
+    public static void main(Args _args)
+    {
+        System.IO.Stream stream;
+        ExcelSpreadsheetName sheet;
+        FileUploadBuild fileUpload, fileUploadBuild;
+
+        FileUploadTemporaryStorageResult fileUploadResult = file::GetFileFromUser(classStr(Al1ExcelFileUploadTemporaryStorageStrategy));
+
+        if (fileUploadResult != null && fileUploadResult.getUploadStatus())
+        {
+            stream = fileUploadResult.openResult();
+            using(ExcelPackage package = new ExcelPackage(stream))
+            {
+                int rowCount, iterator;
+                package.Load(stream);
+                ExcelWorksheet worksheet = package.get_workbook().get_worksheets().get_Item(1);
+                OfficeOpenXml.ExcelRange range = worksheet.Cells;
+                rowCount = worksheet.Dimension.End.Row - worksheet.Dimension.Start.Row + 1;
+
+                for (iterator = 2; iterator <= rowCount; iterator++)
+                {
+                    info(ange.get_Item(iterator, 1).Value);
+                }
+            }
+        }
+    }
+
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
