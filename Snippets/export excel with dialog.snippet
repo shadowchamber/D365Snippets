@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>export excel with dialog</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>export excel with dialog</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[using System.IO;
+using OfficeOpenXml;
+using OfficeOpenXml.ExcelPackage;
+using OfficeOpenXml.ExcelRange;
+
+public class ExcelExport
+{
+    private OfficeOpenXml.ExcelRange cells;
+    private int lineNum;
+
+    public System.IO.MemoryStream generateReport(FromDate _fromDate, ToDate _toDate)
+    {
+        System.IO.Stream workbookStream = new System.IO.MemoryStream();
+        System.IO.MemoryStream memoryStream = new System.IO.MemoryStream();
+
+        using (var package = new OfficeOpenXml.ExcelPackage(memoryStream))
+        {
+            var worksheets = package.get_Workbook().get_Worksheets();
+            var worksheet = worksheets.Add("Items");
+
+            InventTable inventTable;
+            InventSum inventSum;
+
+            cells = worksheet.get_Cells();
+            
+            this.setCellValue(lineNum, 1, 'test');
+
+            this.fit(worksheet);
+
+            package.Save();
+        }
+
+        memoryStream.Seek(0, System.IO.SeekOrigin::Begin);
+
+        return memoryStream;
+    }
+
+    private OfficeOpenXml.ExcelWorksheet fit(OfficeOpenXml.ExcelWorksheet _sheet)
+    {
+        OfficeOpenXml.ExcelWorksheet sheet = _sheet;
+
+        var lastColumn = sheet.get_Dimension().get_End().get_Column();
+        for (int k = 1; k <= lastColumn; k++)
+        {
+            sheet.Column(k).AutoFit();
+        }
+
+        return sheet;
+    }
+
+    private void setCellValue(int _row, int _col, anytype _value)
+    {
+        OfficeOpenXml.ExcelRange cell = cells.get_Item(_row, _col);
+        cell.set_Value(_value);
+    }
+
+    public void run()
+    {
+        System.IO.MemoryStream memoryStream;
+
+        Dialog      dialog;
+        DialogField fieldfDate,
+        DialogField fieldtDate;
+        FromDate fromDate,
+        FromDate toDate;
+
+        dialog = new Dialog("Title");
+        fieldfDate = dialog.addField(extendedTypeStr(FromDate));
+        fieldtDate = dialog.addField(extendedTypeStr(ToDate));
+        dialog.run();
+
+        if (dialog.closedOk())
+        {
+            fromDate = fieldfDate.value();
+            toDate = fieldtDate.value();
+
+            memoryStream = this.generateReport(fromDate, toDate);
+        }
+        else
+        {
+            return;
+        }
+
+        file::SendFileToUser(memoryStream, 'Export.xlsx');
+    }
+
+    /// <summary>
+    /// Runs the class with the specified arguments.
+    /// </summary>
+    /// <param name = "_args">The specified arguments.</param>
+    public static void main(Args _args)
+    {
+        ExcelExport report = new ExcelExport();
+        report.run();
+    }
+
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
