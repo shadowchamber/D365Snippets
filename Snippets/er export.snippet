@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>er export</Title>
+      <Author>Community</Author>
+      <Description>er export</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[using Microsoft.Dynamics365.LocalizationFramework;
+
+/// <summary>
+/// The <c>BankPaymBalanceXML</c> class is responsible for exports file for BLWI declaration.
+/// </summary>
+public class ERReport extends RunBase
+{
+    private ERFileName fileName;
+    private TransDate fromDate, toDate;
+    private ERIFileDestination fileDestination;
+
+    private DialogField fieldFileName;
+    private DialogField fieldFromDate;
+    private DialogField fieldToDate;
+
+    [Microsoft.Dynamics.BusinessPlatform.SharedTypes.InternalUseOnlyAttribute]
+    public Filename parmFileName(Filename _fileName = fileName)
+    {
+        fileName = _fileName;
+        return fileName;
+    }
+
+    [Microsoft.Dynamics.BusinessPlatform.SharedTypes.InternalUseOnlyAttribute]
+    public ERIFileDestination parmFileDestination(ERIFileDestination _fileDestination = fileDestination)
+    {
+        fileDestination = _fileDestination;
+        return fileDestination;
+    }
+
+    public void new()
+    {
+        super();
+
+        fileDestination = ERObjectsFactory::createFileDestinationBrowser();
+    }
+
+    /// <summary>
+    /// Runs export via ER solution.
+    /// </summary>
+    [Microsoft.Dynamics.BusinessPlatform.SharedTypes.InternalUseOnlyAttribute]
+    protected void runER()
+    {
+        const str erParmFromDate = 'model/parameters.FromDate';
+        const str erParmToDate = 'model/parameters.ToDate';
+
+        ERModelDefinitionInputParametersAction modelDefinitionInputParametersAction = new ERModelDefinitionInputParametersAction();
+
+        modelDefinitionInputParametersAction
+            .addParameter(erParmFromDate, fromDate)
+            .addParameter(erParmToDate, toDate)
+            ;
+
+        ERObjectsFactory::createFormatMappingRunByFormatMappingId(formatMappingRecId, fileName)
+            .withFileDestination(fileDestination)
+            .withParameter(modelDefinitionInputParametersAction)
+            .run();
+    }
+
+    protected boolean canRunInNewSession()
+    {
+        return false;
+    }
+
+    /// <summary>
+    /// Creates a dialog box where the user is asked to fill in the file name, e-mail address, the contact
+    /// person name, the period date, and the survey code.
+    /// </summary>
+    /// <param name="_dialog">
+    /// The basic dialog that is necessary to create the dialog box.
+    /// </param>
+    /// <param name="_forceOnClient">
+    /// A Boolean value that indicates whether the dialog box is forced on the client or not.
+    /// </param>
+    /// <returns>
+    /// The created dialog box.
+    /// </returns>
+    /// <remarks>
+    /// The <paramref name="_forceOnClient" /> parameter is not used here, but it is needed because it is a
+    /// parameter on the base method, <c>Runbase.dialog</c>.
+    /// </remarks>
+    public Object dialog(DialogRunbase _dialog = null, boolean _forceOnClient = false)
+    {
+        DialogRunbase dialog = new DialogRunbase("Create excel report", this);
+
+        fieldFromDate = dialog.addFieldValue(extendedtypestr(FromDate), fromDate);
+        fieldToDate = dialog.addFieldValue(extendedtypestr(ToDate), toDate);
+        
+        return dialog;
+    }
+
+    /// <summary>
+    /// Puts all dialog box field values into variables.
+    /// </summary>
+    /// <returns>
+    /// true if the dialog box field values are put into variables; otherwise, false.
+    /// </returns>
+    public boolean getFromDialog()
+    {
+        fromDate = fieldFromDate.value();
+        toDate = fieldToDate.value();
+
+        return true;
+    }
+
+    /// <summary>
+    /// Contains the code that does the actual job of the class.
+    /// </summary>
+    public void run()
+    {
+        this.runER();
+    }
+
+    public static void main(Args _args)
+    {
+        ERReport report = new ERReport();
+
+        if (report.prompt())
+        {
+            report.runOperation();
+        }
+    }
+
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
