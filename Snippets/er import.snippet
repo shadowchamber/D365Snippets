@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>er import</Title>
+      <Author>Community</Author>
+      <Description>er import</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[ttsbegin;
+        ERIntegrationPointDestinationMapping mapping;
+        select firstonly forupdate mapping
+            where mapping.IntegrationPoint == 'ERTableDestination#TableName';
+        if (mapping.DataContainerDescriptor != 0)
+        {
+            mapping.DataContainerDescriptor = 0;
+            mapping.update();
+        }
+        ttscommit;
+
+        var runner = ERObjectsFactory::createMappingDestinationRunByImportFormatMappingId(mappingRecId, 'ERTableDestination#TableName');
+        runner.run();]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
