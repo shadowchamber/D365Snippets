@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>record insert list</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>ril</Description>
+      <HelpUrl />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+      <Keywords />
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+        <Literal Editable="true">
+          <ID>tableName</ID>
+          <Type />
+          <ToolTip>Table name</ToolTip>
+          <Default>table1</Default>
+          <Function />
+        </Literal>
+        <Literal Editable="true">
+          <ID>addFrom</ID>
+          <Type />
+          <ToolTip>source table record valiable to add to record set</ToolTip>
+          <Default>record</Default>
+          <Function />
+        </Literal>
+      </Declarations>
+      <Code Language="X++" Kind="" Delimiter="$">
+	  <![CDATA[RecordInsertList recordInsertList = new RecordInsertList(tableNum($tableName$));
+			recordInsertList.add($addFrom$);
+			recordInsertList.insertDatabase();]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
